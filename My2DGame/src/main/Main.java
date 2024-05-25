@@ -15,5 +15,7 @@ public class Main {
      window.pack(); // causes this window tto be sized to fit the preferrd size and lazyouts of its subcomponents (GamePanel)
      window.setLocationRelativeTo(null); // where we want the window to be displayed  if null at the center 
      window.setVisible(true);
+     gamePanel.startGameThread();
+
  }
 }
