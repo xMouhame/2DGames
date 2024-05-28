@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -15,21 +16,22 @@ public class GamePanel extends JPanel implements Runnable{
 	final int originalTitleSize = 16;  // 16*16 title the box of the character
 	final int scale= 3;
 	public int tileSize = originalTitleSize * scale ; // 48*48 tilte 
-	final int maxScreenCol = 16;
-	final int maxScreenRow = 12;
+	public int maxScreenCol = 16;
+	public int maxScreenRow = 12;
 	final int screenWidth = tileSize * maxScreenCol ; // 768 pixels
 	final int screenHeight = tileSize * maxScreenRow; // 556 pixels
 
 	// FPS
 	int FPS = 60;
-
+	TileManager tileM = new TileManager(this);
 	KeyHandler keyH = new KeyHandler ();
 	Thread gameThread; //The thread responsible for running the game's main loop
 	Player player = new Player (this, keyH);
-	// set players default  position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 4;
+	
+//	// set players default  position
+//	int playerX = 100;
+//	int playerY = 100;
+//	int playerSpeed = 4;
 
 	public GamePanel () {
 		this.setPreferredSize(new Dimension (screenWidth, screenHeight) ); // set the size of this class 
@@ -107,9 +109,10 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	public void paintComponent (Graphics g) {
 
-		super.paintComponent(g);
-
+		super.paintComponent(g);	
 		Graphics2D g2 = (Graphics2D) g;  // extends the graphic class to provide more sophisticated control over geometry, coordinate transformations, color managemment, and tesxt layout 
+
+		tileM.draw(g2);
 		player.draw(g2);
 		g2.dispose(); // to save some memory
 	}
